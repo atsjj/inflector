@@ -1,0 +1,9 @@
+export { default as camelize } from "./camelize.ts";
+export { default as capitalize } from "./capitalize.ts";
+export { default as classify } from "./classify.ts";
+export { default as dasherize } from "./dasherize.ts";
+export { default as decamelize } from "./decamelize.ts";
+export { default as pluralize } from "./pluralize.ts";
+export { default as singularize } from "./singularize.ts";
+export { default as underscore } from "./underscore.ts";
+export { default as w } from "./w.ts";

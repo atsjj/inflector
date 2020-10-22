@@ -1,0 +1,27 @@
+{
+  "name": "@atsjj/inflector",
+  "version": "0.0.0",
+  "description": "Inflector is a library that is compatible with ActiveSupport::Inflector.",
+  "homepage": "https://github.com/atsjj/inflector",
+  "repository": "https://github.com/atsjj/inflector",
+  "author": "Steve Jabour <steve@jabour.me> (https://github.com/atsjj)",
+  "license": "MIT",
+  "scripts": {
+    "test": "yarn test:fmt && yarn test:lint && yarn test:test",
+    "test:fmt": "deno fmt --check",
+    "test:lint": "deno lint --unstable",
+    "test:test": "deno test --config tsconfig.json"
+  },
+  "release-it": {
+    "plugins": {
+      "release-it-lerna-changelog": {
+        "infile": "CHANGELOG.md",
+        "launchEditor": true
+      }
+    },
+    "github": {
+      "release": true,
+      "tokenRef": "GITHUB_AUTH"
+    }
+  }
+}
