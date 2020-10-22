@@ -10,7 +10,7 @@
     "test": "yarn test:fmt && yarn test:lint && yarn test:test",
     "test:fmt": "deno fmt --check",
     "test:lint": "deno lint --unstable",
-    "test:test": "deno test --config tsconfig.json"
+    "test:test": "deno test"
   },
   "release-it": {
     "plugins": {
