@@ -6,11 +6,18 @@ import {
 } from "https://deno.land/std@0.74.0/path/mod.ts";
 import { ensureDir } from "https://deno.land/std@0.74.0/fs/mod.ts";
 
+interface BabelImportDeclarationPath {
+  node: {
+    source: {
+      value: string;
+    };
+  };
+}
+
 function denoImports() {
   return {
     visitor: {
-      // @ts-ignore
-      ImportDeclaration(path, source) {
+      ImportDeclaration(path: BabelImportDeclarationPath) {
         if (path.node.source) {
           path.node.source.value = path.node.source.value.replace(
             /\.ts$/,
@@ -18,8 +25,7 @@ function denoImports() {
           );
         }
       },
-      // @ts-ignore
-      ExportDeclaration(path, source) {
+      ExportDeclaration(path: BabelImportDeclarationPath) {
         if (path.node.source) {
           path.node.source.value = path.node.source.value.replace(
             /\.ts$/,
@@ -31,12 +37,21 @@ function denoImports() {
   };
 }
 
+interface BabelCallExpressionPath {
+  node: {
+    callee: {
+      name: string;
+    };
+    arguments: {
+      value: string;
+    }[];
+  };
+}
+
 function denoRequires() {
   return {
     visitor: {
-      // @ts-ignore
-      CallExpression(path, source) {
-        // @ts-ignore
+      CallExpression(path: BabelCallExpressionPath) {
         if (path.node.callee.name === "require") {
           for (let i = 0; i < path.node.arguments.length; i++) {
             path.node.arguments[i].value = path.node.arguments[i].value.replace(
@@ -78,7 +93,7 @@ const [__, esmMap] = await Deno.compile("mod.ts", undefined, {
 
 for (const key of Reflect.ownKeys(cjsMap)) {
   if (typeof key === "string") {
-    let path = join(cjsPath, new URL(key).pathname.replace(cwd, "").slice(1));
+    const path = join(cjsPath, new URL(key).pathname.replace(cwd, "").slice(1));
     let data = cjsMap[key];
 
     await ensureDir(dirname(path));
@@ -101,7 +116,7 @@ for (const key of Reflect.ownKeys(cjsMap)) {
 
 for (const key of Reflect.ownKeys(esmMap)) {
   if (typeof key === "string") {
-    let path = join(esmPath, new URL(key).pathname.replace(cwd, "").slice(1));
+    const path = join(esmPath, new URL(key).pathname.replace(cwd, "").slice(1));
     let data = esmMap[key];
 
     await ensureDir(dirname(path));
