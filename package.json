@@ -1,6 +1,6 @@
 {
   "name": "@atsjj/inflector",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Inflector is a library that is compatible with ActiveSupport::Inflector.",
   "homepage": "https://github.com/atsjj/inflector",
   "repository": "https://github.com/atsjj/inflector",
