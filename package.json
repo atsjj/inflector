@@ -8,6 +8,9 @@
   "license": "MIT",
   "module": "dist/esm/mod.js",
   "main": "dist/cjs/mod.js",
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "deno run -A --unstable build.ts",
     "test": "yarn test:fmt && yarn test:lint && yarn test:test",
@@ -16,6 +19,14 @@
     "test:test": "deno test"
   },
   "release-it": {
+    "hooks": {
+      "after:bump": [
+        "yarn build"
+      ],
+      "after:release": [
+        "rm -rf dist"
+      ]
+    },
     "plugins": {
       "release-it-lerna-changelog": {
         "infile": "CHANGELOG.md",
@@ -25,6 +36,9 @@
     "github": {
       "release": true,
       "tokenRef": "GITHUB_AUTH"
+    },
+    "npm": {
+      "publish": true
     }
   }
 }
