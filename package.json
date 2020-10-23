@@ -9,7 +9,7 @@
   "module": "dist/esm/mod.js",
   "main": "dist/cjs/mod.js",
   "scripts": {
-    "build": "deno run -A --unstable ./build.ts",
+    "build": "deno run -A --unstable build.ts",
     "test": "yarn test:fmt && yarn test:lint && yarn test:test",
     "test:fmt": "deno fmt --check",
     "test:lint": "deno lint --unstable",
